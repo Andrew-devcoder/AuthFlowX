@@ -10,7 +10,7 @@ export default function TechStack() {
 					<p className="mx-auto mt-2 max-w-lg text-center text-4xl font-semibold tracking-tight text-balance text-gray-950 sm:text-5xl">
 						The Tools I Chose for Development
 					</p>
-					<div className="mt-10 grid grid-cols-2 gap-4 sm:mt-16 lg:grid-cols-2 ">
+					<div className="mt-10 grid grid-cols-1 gap-4 sm:mt-16 lg:grid-cols-2 ">
 
 						<div className="flex flex-col rounded-lg bg-white lg:rounded-l-[2rem]">
 							<div className="px-8 py-8 sm:px-10 sm:py-10 ">
