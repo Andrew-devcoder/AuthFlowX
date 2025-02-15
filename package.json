@@ -38,6 +38,7 @@
 		"@netlify/functions": "^3.0.0",
 		"firebase": "^11.0.2",
 		"firebase-admin": "^13.1.0",
-		"react-checkmark": "^2.1.1"
+		"react-checkmark": "^2.1.1",
+		"react-scroll": "^1.9.2"
 	}
 }

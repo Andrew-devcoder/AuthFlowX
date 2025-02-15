@@ -49,12 +49,6 @@ The UI is built with **Tailwind CSS** for modern styling, while **Headless UI** 
 
 The project also includes **custom form validation** to ensure correct user input, with centralized logic for reusability.
 
-### **Routing & Protected Pages**
-
-The application uses **React Router** for navigation, ensuring a structured and scalable routing system.  
-To protect user data, certain pages (such as **Home** and **Settings**) are accessible **only to authenticated users**.  
-A **ProtectedRoute** wrapper automatically redirects unauthenticated users to the login page.
-
 ### **Routing**
 
 The application uses **React Router** for navigation, ensuring a structured and scalable routing system.  

@@ -9,8 +9,6 @@ import { useSelector } from 'react-redux'
 const navigation = [
 	{ name: 'Overview', to: '/' },
 	{ name: 'Tech Stack', to: '/tech-stack' },
-	{ name: 'Architecture', to: '/architecture' },
-	{ name: 'Projects', to: '/projects' },
 ]
 
 function classNames(...classes) {

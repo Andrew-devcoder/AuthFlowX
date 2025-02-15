@@ -8,8 +8,6 @@ import Registration from '../pages/Registration';
 import ResetPassword from '../pages/ResetPassword';
 import Settings from '../pages/Settings';
 import TechStack from '../pages/TechStack';
-import Architecture from '../pages/Architecture';
-import Projects from '../pages/Projects';
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
@@ -29,22 +27,6 @@ const router = createBrowserRouter(
 					element={
 						<ProtectedRoute>
 							<TechStack />
-						</ProtectedRoute>
-					}
-				/>
-				<Route
-					path="architecture"
-					element={
-						<ProtectedRoute>
-							<Architecture />
-						</ProtectedRoute>
-					}
-				/>
-				<Route
-					path="projects"
-					element={
-						<ProtectedRoute>
-							<Projects />
 						</ProtectedRoute>
 					}
 				/>
