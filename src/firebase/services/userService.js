@@ -2,6 +2,7 @@ import { doc, getDoc, onSnapshot, setDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../config';
 import { store } from '../../redux/store';
 import { resetForm } from '../../redux/slices/formSlice';
+import { outUser } from '../../redux/actions/authActions';
 
 export const saveUserData = async (uid, user) => {
 	try {
@@ -31,10 +32,11 @@ export const subscribeToUser = (uid, callback) => {
 
 	const userRef = doc(db, 'users', uid);
 
-	const unsubscribe = onSnapshot(userRef, (docSnapshot) => {
+	const unsubscribe = onSnapshot(userRef, async (docSnapshot) => {
 		if (docSnapshot.exists()) {
 			callback(docSnapshot.data());
 		} else {
+			await outUser();
 			console.log('User document does not exist');
 		}
 	});

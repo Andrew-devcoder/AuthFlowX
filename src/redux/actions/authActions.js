@@ -1,4 +1,3 @@
-import { createUserWithEmailAndPassword, getAuth, sendPasswordResetEmail } from 'firebase/auth';
 import { signInUser, signOutUser } from '../../firebase/services/authService';
 import { clearUser, setUser } from '../slices/userSlice';
 import { store } from '../store';
@@ -17,7 +16,7 @@ export const loginUser = async (email, password) => {
 
 export const outUser = async () => {
 	try {
-		signOutUser();
+		await signOutUser();
 		store.dispatch(clearUser());
 	} catch (error) {
 		console.error(error);
