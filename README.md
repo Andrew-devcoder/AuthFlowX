@@ -49,6 +49,16 @@ The UI is built with **Tailwind CSS** for modern styling, while **Headless UI** 
 
 The project also includes **custom form validation** to ensure correct user input, with centralized logic for reusability.
 
+### **Real-Time Updates with WebSocket**
+
+A WebSocket connection is used to **subscribe to real-time updates**, ensuring that users receive data changes **instantly**, without needing to refresh the page or send explicit requests.  
+This feature **improves responsiveness** and makes interactions **more dynamic and fluid**.
+
+#### **Example use case:**
+
+-   When an admin **updates user data**, all connected clients receive the update **instantly**.
+-   **Live notifications** are pushed in real-time instead of requiring polling or manual refresh.
+
 ### **Routing**
 
 The application uses **React Router** for navigation, ensuring a structured and scalable routing system.  
