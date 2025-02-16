@@ -6,7 +6,7 @@ export default function Home() {
 			category: 'Backend as a Service',
 			title: 'Firebase',
 			description:
-				'The project includes user authentication features such as registration, login, and password recovery**, all handled via Firebase Authentication.\nFor profile management, users can currently update their **name**.',
+				'The project includes user authentication features such as registration, login, and password recovery**, all handled via Firebase Authentication.\nFor profile management, users can currently update their **name**.\nA WebSocket connection is used to **subscribe to real-time updates**, ensuring that users receive data changes **instantly**, without needing to refresh the page or send explicit requests. This feature **improves responsiveness** and makes interactions **more dynamic and fluid**.',
 		},
 		{
 			category: 'State Management',
