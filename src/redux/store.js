@@ -3,6 +3,8 @@ import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import userReducer from './slices/userSlice';
 import formReducer from './slices/formSlice';
+import { websocketMiddleware } from '../websocket/websocketMiddleware';
+import websocketReducer from './slices/websocketSlice';
 
 const persistConfig = {
 	key: 'root',
@@ -16,6 +18,7 @@ export const store = configureStore({
 	reducer: {
 		user: persistedUserReducer,
 		form: formReducer,
+		websocket: websocketReducer,
 	},
 	middleware: (getDefaultMiddleware) =>
 		getDefaultMiddleware({
@@ -29,7 +32,7 @@ export const store = configureStore({
 					'persist/REGISTER',
 				],
 			},
-		}),
+		}).concat(websocketMiddleware),
 });
 
 export const persistor = persistStore(store);

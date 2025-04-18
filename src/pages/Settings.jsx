@@ -6,14 +6,15 @@ import { updateFormField } from '../redux/actions/formActions';
 
 import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid'
 import { ChevronDownIcon } from '@heroicons/react/16/solid'
+import { getWebSocket } from '../websocket/websocketService';
+import { setMessage } from '../redux/slices/websocketSlice';
+import { requestImage } from '../utils/apiImage';
 
 export default function Settings() {
 	const uid = useSelector((state) => state.user.uid)
 	const [isVisible, setIsVisible] = useState(false);
 
-	useEffect(() => {
-		setIsVisible(true);
-	}, []);
+	const [imageData, setImageData] = useState(null)
 
 	useEffect(() => {
 		getUserData(uid).then((doc) => {
@@ -24,6 +25,31 @@ export default function Settings() {
 	const handleSubmit = async () => {
 		changeInformation(uid)
 	}
+
+	const [socket, setSocket] = useState(null);
+
+	useEffect(() => {
+		setIsVisible(true);
+
+		const socket = getWebSocket();
+
+		if (!socket) return;
+
+		setSocket(socket);
+
+		socket.on('connect', () => {
+			console.log('[WS] ✅ Connected with ID:', socket.id);
+		});
+
+		socket.on('image-ready', (data) => {
+			console.log('[WS] 📦 image-ready received:', data);
+			setImageData(data);
+		});
+
+		return () => {
+			socket.off('image-ready');
+		};
+	}, []);
 
 	return (
 		<div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -77,6 +103,22 @@ export default function Settings() {
 						</div>
 					</div> */}
 
+					{imageData?.success && (
+						<img
+							src={imageData.image}
+							alt="Cloudinary Result"
+							className="rounded shadow-md mt-4"
+						/>
+					)}
+
+
+					<button
+						onClick={() => requestImage('cld-sample-4', socket)}
+						type="button"
+						className="my-6 flex w-full justify-center rounded-md bg-white px-3 py-1.5 text-sm font-semibold text-gray-900 ring-1 shadow-xs ring-gray-300 ring-inset hover:bg-gray-50" >
+						button
+					</button>
+
 
 					<Form fields={[
 						{ label: "Name", name: "name", maxLength: 30, required: true },
@@ -84,7 +126,6 @@ export default function Settings() {
 						submitText='Save'
 						onSubmit={handleSubmit}
 					/>
-
 
 
 				</div>
