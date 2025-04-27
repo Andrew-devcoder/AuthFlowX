@@ -51,6 +51,18 @@ export default function Settings() {
 		};
 	}, []);
 
+	const publicId = 'cld-sample-5';
+
+	const handleImageRequest = async (publicId) => {
+
+		const data = await requestImage(publicId, socket)
+
+		setImageData(data);
+
+		console.log('[client] 🚀 data:', data);
+	}
+
+
 	return (
 		<div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
 			<div
@@ -103,9 +115,9 @@ export default function Settings() {
 						</div>
 					</div> */}
 
-					{imageData?.success && (
+					{imageData && (
 						<img
-							src={imageData.image}
+							src={imageData.image || imageData.secure_url}
 							alt="Cloudinary Result"
 							className="rounded shadow-md mt-4"
 						/>
@@ -113,7 +125,7 @@ export default function Settings() {
 
 
 					<button
-						onClick={() => requestImage('cld-sample-4', socket)}
+						onClick={() => handleImageRequest(publicId)}
 						type="button"
 						className="my-6 flex w-full justify-center rounded-md bg-white px-3 py-1.5 text-sm font-semibold text-gray-900 ring-1 shadow-xs ring-gray-300 ring-inset hover:bg-gray-50" >
 						button

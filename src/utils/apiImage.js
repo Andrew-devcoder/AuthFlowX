@@ -7,7 +7,7 @@ export const requestImage = async (publicId, socket) => {
 	try {
 		console.log('[client] 🚀 Sending image request to API with socketId:', socket.id);
 
-		await fetch(`http://localhost:3000/img/${publicId}`, {
+		const res = await fetch(`http://localhost:3000/img/${publicId}`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -17,7 +17,10 @@ export const requestImage = async (publicId, socket) => {
 			}),
 		});
 
-		console.log('[client] ✅ Request sent, waiting for WebSocket');
+		const data = await res.json();
+		console.log('[client] ✅ Request sent, waiting for WebSocket', data);
+
+		return data;
 	} catch (err) {
 		console.error('[client] ❌ Failed to send image request:', err.message);
 	}
