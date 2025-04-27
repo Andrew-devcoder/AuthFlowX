@@ -6,7 +6,7 @@ export const connectWebSocket = () => {
 	if (socket) return socket;
 
 	// socket = io('http://localhost:3000', {
-	socket = io(`http://${import.meta.env.VITE_SERVER}:3000`, {
+	socket = io(`https://${import.meta.env.VITE_SERVER}:3000`, {
 		path: '/ws',
 		transports: ['websocket'],
 	});
