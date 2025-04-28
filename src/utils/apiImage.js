@@ -8,6 +8,7 @@ export const requestImage = async (publicId, socket) => {
 		console.log('[client] 🚀 Sending image request to API with socketId:', socket.id);
 
 		// const res = await fetch(`http://localhost:3000/img/${publicId}`, {
+
 		const res = await fetch(`https://${import.meta.env.VITE_SERVER}/img/${publicId}`, {
 			method: 'POST',
 			headers: {
