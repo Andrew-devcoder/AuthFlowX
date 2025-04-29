@@ -28,7 +28,6 @@
 // };
 
 // export const getWebSocket = () => socket;
-
 let socket = null;
 
 export const connectWebSocket = () => {
@@ -37,11 +36,19 @@ export const connectWebSocket = () => {
 	socket = new WebSocket(`wss://${import.meta.env.VITE_SERVER}/ws`);
 
 	socket.onopen = () => {
-		console.log('WebSocket connected');
+		console.log('[WS] ✅ Connected to WebSocket server');
+	};
+
+	socket.onmessage = (event) => {
+		console.log('[WS] 📩 Message received:', event.data);
 	};
 
 	socket.onerror = (error) => {
-		console.error('WebSocket error:', error);
+		console.error('[WS] ❌ WebSocket error:', error);
+	};
+
+	socket.onclose = () => {
+		console.log('[WS] ❌ WebSocket closed');
 	};
 
 	return socket;
