@@ -28,19 +28,28 @@
 // };
 
 // export const getWebSocket = () => socket;
+
 let socket = null;
 
 export const connectWebSocket = () => {
 	if (socket) return socket;
 
-	socket = new WebSocket(`wss://${import.meta.env.VITE_SERVER}/ws`);
+	const url = `wss://${import.meta.env.VITE_SERVER}/ws`;
+	console.log('[WS] connecting to:', url);
+
+	socket = new WebSocket(url);
 
 	socket.onopen = () => {
 		console.log('[WS] ✅ Connected to WebSocket server');
 	};
 
 	socket.onmessage = (event) => {
-		console.log('[WS] 📩 Message received:', event.data);
+		try {
+			const data = JSON.parse(event.data);
+			console.log('[WS] 📩 Message received:', data);
+		} catch (e) {
+			console.error('[WS] ❌ Failed to parse message:', event.data);
+		}
 	};
 
 	socket.onerror = (error) => {
@@ -54,9 +63,9 @@ export const connectWebSocket = () => {
 	return socket;
 };
 
-export const sendWebSocketMessage = (event, data) => {
+export const sendWebSocketMessage = (data) => {
 	if (socket && socket.readyState === WebSocket.OPEN) {
-		socket.send(JSON.stringify({ event, data }));
+		socket.send(JSON.stringify(data));
 	}
 };
 
@@ -66,5 +75,6 @@ export const closeWebSocket = () => {
 		socket = null;
 	}
 };
+ß;
 
 export const getWebSocket = () => socket;
