@@ -75,6 +75,5 @@ export const closeWebSocket = () => {
 		socket = null;
 	}
 };
-ß;
 
 export const getWebSocket = () => socket;
