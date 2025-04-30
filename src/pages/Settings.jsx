@@ -17,6 +17,8 @@ export default function Settings() {
 	const [imageData, setImageData] = useState(null)
 
 	useEffect(() => {
+		if (!uid) return;
+
 		getUserData(uid).then((doc) => {
 			updateFormField('name', doc.name)
 		})
