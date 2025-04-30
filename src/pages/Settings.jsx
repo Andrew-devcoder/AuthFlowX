@@ -6,8 +6,9 @@ import { updateFormField } from '../redux/actions/formActions';
 
 import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid'
 import { ChevronDownIcon } from '@heroicons/react/16/solid'
-import { getWebSocket } from '../websocket/websocketService';
 import { setMessage } from '../redux/slices/websocketSlice';
+
+import { connectWebSocket, getWebSocket } from '../websocket/websocketService';
 import { requestImage } from '../utils/apiImage';
 
 export default function Settings() {
@@ -15,6 +16,59 @@ export default function Settings() {
 	const [isVisible, setIsVisible] = useState(false);
 
 	const [imageData, setImageData] = useState(null)
+
+	const [socket, setSocket] = useState(null);
+
+	useEffect(() => {
+		setIsVisible(true);
+
+		// const socket = getWebSocket();
+
+		// if (!socket) return;
+
+		// setSocket(socket);
+
+		// socket.on('connect', () => {
+		// 	console.log('[WS] ✅ Connected with ID:', socket.id);
+		// });
+
+		// socket.on('image-ready', (data) => {
+		// 	console.log('[WS] 📦 image-ready received:', data);
+		// 	setImageData(data);
+		// });
+
+		// return () => {
+		// 	socket.off('image-ready');
+		// };
+
+		const socket = connectWebSocket(); // зміни тут!
+
+		if (!socket) return;
+
+		setSocket(socket);
+
+		const handleOpen = () => {
+			console.log('[WS] ✅ Connected to WebSocket server');
+		};
+
+		const handleMessage = (event) => {
+			try {
+				const data = JSON.parse(event.data);
+				console.log('[WS] 📦 image-ready received:', data);
+				setImageData(data);
+			} catch (e) {
+				console.error('[WS] ❌ Failed to parse message:', event.data);
+			}
+		};
+
+		socket.addEventListener('open', handleOpen);
+		socket.addEventListener('message', handleMessage);
+
+		return () => {
+			socket.removeEventListener('message', handleMessage);
+			socket.removeEventListener('open', handleOpen);
+		};
+	}, []);
 
 	useEffect(() => {
 		if (!uid) return;
@@ -28,30 +82,7 @@ export default function Settings() {
 		changeInformation(uid)
 	}
 
-	const [socket, setSocket] = useState(null);
 
-	useEffect(() => {
-		setIsVisible(true);
-
-		const socket = getWebSocket();
-
-		if (!socket) return;
-
-		setSocket(socket);
-
-		socket.on('connect', () => {
-			console.log('[WS] ✅ Connected with ID:', socket.id);
-		});
-
-		socket.on('image-ready', (data) => {
-			console.log('[WS] 📦 image-ready received:', data);
-			setImageData(data);
-		});
-
-		return () => {
-			socket.off('image-ready');
-		};
-	}, []);
 
 	const publicId = 'cld-sample-5';
 
