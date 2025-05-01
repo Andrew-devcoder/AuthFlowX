@@ -1,12 +1,13 @@
 let socket = null;
+let socketId = null;
 
-const generateClientId = () => {
-	let clientId = localStorage.getItem('clientId');
-	if (!clientId) {
-		clientId = crypto.randomUUID();
-		localStorage.setItem('clientId', clientId);
+const generateSocketId = () => {
+	let id = localStorage.getItem('socketId');
+	if (!id) {
+		id = crypto.randomUUID();
+		localStorage.setItem('socketId', id);
 	}
-	return clientId;
+	return id;
 };
 
 export const connectWebSocket = () => {
@@ -20,8 +21,8 @@ export const connectWebSocket = () => {
 	socket.onopen = () => {
 		console.log('[WS] ✅ Connected to WebSocket server');
 
-		const clientId = generateClientId();
-		socket.send(JSON.stringify({ type: 'register', clientId }));
+		socketId = generateSocketId();
+		socket.send(JSON.stringify({ type: 'register', socketId }));
 	};
 
 	socket.onmessage = (event) => {
@@ -39,6 +40,7 @@ export const connectWebSocket = () => {
 
 	socket.onclose = () => {
 		console.log('[WS] ❌ WebSocket closed');
+		socket = null;
 	};
 
 	return socket;
@@ -58,5 +60,4 @@ export const closeWebSocket = () => {
 };
 
 export const getWebSocket = () => socket;
-
-export const getClientId = () => localStorage.getItem('clientId');
+export const getSocketId = () => localStorage.getItem('socketId');
