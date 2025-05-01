@@ -3,8 +3,11 @@ let socketId = null;
 
 const generateSocketId = () => {
 	let id = localStorage.getItem('socketId');
+	console.log('[WS] Generated new socket ID:', id);
+
 	if (!id) {
 		id = crypto.randomUUID();
+		console.log('[WS] Generated new socket ID:', id);
 		localStorage.setItem('socketId', id);
 	}
 	return id;
