@@ -1,4 +1,4 @@
-import { getSocketId } from '../websocket/websocketService';
+import { getSocketId } from './socketId';
 
 export const requestImage = async (publicId) => {
 	const socketId = getSocketId();
