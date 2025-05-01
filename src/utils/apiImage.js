@@ -1,7 +1,7 @@
-import { getClientId } from '../websocket/websocketService';
+import { getSocketId } from '../websocket/websocketService';
 
 export const requestImage = async (publicId) => {
-	const socketId = getClientId();
+	const socketId = getSocketId();
 
 	try {
 		console.log('[client] 🚀 Sending image request to API');
