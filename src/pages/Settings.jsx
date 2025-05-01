@@ -88,7 +88,7 @@ export default function Settings() {
 
 	const handleImageRequest = async (publicId) => {
 
-		const data = await requestImage(publicId, socket)
+		const data = await requestImage(publicId)
 
 		setImageData(data);
 
